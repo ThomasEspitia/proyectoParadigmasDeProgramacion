@@ -4,6 +4,7 @@ import java.io.*;
 import java.util.*;
 
 public interface OperacionArchivo {
-    String serializar(Semilla[] semillas, int total);
-    Semilla[] deserializar();
+    String serializar(String path);
+    String deserializar(String path);
 }
+
