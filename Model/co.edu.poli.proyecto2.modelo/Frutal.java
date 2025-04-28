@@ -3,24 +3,22 @@ package co.edu.poli.proyecto2.modelo;
 import java.io.*;
 import java.util.*;
 
-public class Hortaliza extends Semilla {
-    private String tipoHortaliza;
+package modelo;
 
-    public Hortaliza(String id, String nombre, int cantidadDisponible, int tiempoDeCosecha, String origen, String tipoHortaliza) {
+public class Frutal extends Semilla {
+    private String mesFructificacion;
+
+    public Frutal(String id, String nombre, int cantidadDisponible, int tiempoDeCosecha, String origen, String mesFructificacion) {
         super(id, nombre, cantidadDisponible, tiempoDeCosecha, origen);
-        this.tipoHortaliza = tipoHortaliza;
+        this.mesFructificacion = mesFructificacion;
     }
 
-	public String getTipoHortaliza() {
-		return tipoHortaliza;
+	public String getMesFructificacion() {
+		return mesFructificacion;
 	}
 
-	public void setTipoHortaliza(String tipoHortaliza) {
-		this.tipoHortaliza = tipoHortaliza;
+	public void setMesFructificacion(String mesFructificacion) {
+		this.mesFructificacion = mesFructificacion;
 	}
-
-	@Override
-	public String toString() {
-        return super.toString() + ", Tipo de Hortaliza: " + tipoHortaliza;
-    }
+    
 }
