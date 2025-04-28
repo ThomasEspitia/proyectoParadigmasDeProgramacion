@@ -3,8 +3,6 @@ package co.edu.poli.proyecto2.modelo;
 import java.io.*;
 import java.util.*;
 
-package modelo;
-
 public class Frutal extends Semilla {
     private String mesFructificacion;
 
