@@ -5,82 +5,91 @@ import co.edu.poli.proyecto2.modelo.Semilla;
 import java.io.*;
 import java.util.*;
 
-/**
- * 
- */
+import java.util.Arrays;
+
 public class ImplementacionCRUD implements CRUD, OperacionArchivo {
-
-    /**
-     * Default constructor
-     */
+    private Semilla[] semillas;
+    private int count;
+    
     public ImplementacionCRUD() {
+        semillas = new Semilla[10];
+        count = 0;
     }
-
-    /**
-     * 
-     */
-    public List<Semilla> semilla;
-
-    /**
-     * @param semilla 
-     * @return
-     */
+    
+    private void expandArray() {
+        semillas = Arrays.copyOf(semillas, semillas.length * 2);
+    }
+    
+    @Override
     public String create(Semilla semilla) {
-        // TODO implement CRUD.create() here
-        return "";
+        if (count == semillas.length) {
+            expandArray();
+        }
+        semillas[count++] = semilla;
+        return "Semilla creada exitosamente.";
     }
-
-    /**
-     * @param id 
-     * @return
-     */
+    
+    @Override
     public Semilla read(String id) {
-        // TODO implement CRUD.read() here
+        for (int i = 0; i < count; i++) {
+            if (semillas[i].getId().equals(id)) {
+                return semillas[i];
+            }
+        }
         return null;
     }
-
-    /**
-     * @return
-     */
-    public List<Semilla> readAll() {
-        // TODO implement CRUD.readAll() here
-        return null;
+    
+    @Override
+    public Semilla[] readAll() {
+        return Arrays.copyOf(semillas, count);
     }
-
-    /**
-     * @param id 
-     * @return
-     */
-    public String update(String id) {
-        // TODO implement CRUD.update() here
-        return "";
+    
+    @Override
+    public String update(Semilla semilla) {
+        for (int i = 0; i < count; i++) {
+            if (semillas[i].getId().equals(semilla.getId())) {
+                semillas[i] = semilla;
+                return "Semilla actualizada exitosamente.";
+            }
+        }
+        return "No se encontró la semilla a actualizar.";
     }
-
-    /**
-     * @param id 
-     * @return
-     */
+    
+    @Override
     public String delete(String id) {
-        // TODO implement CRUD.delete() here
-        return "";
+        for (int i = 0; i < count; i++) {
+            if (semillas[i].getId().equals(id)) {
+                for (int j = i; j < count - 1; j++) {
+                    semillas[j] = semillas[j + 1];
+                }
+                semillas[--count] = null;
+                return "Semilla eliminada exitosamente.";
+            }
+        }
+        return "No se encontró la semilla a eliminar.";
     }
-
-    /**
-     * @param path 
-     * @return
-     */
+    
+    @Override
     public String serializar(String path) {
-        // TODO implement OperacionArchivo.serializar() here
-        return "";
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(path))) {
+            oos.writeObject(readAll());
+            return "Serialización exitosa. Archivo guardado en " + path;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "Error durante la serialización: " + e.getMessage();
+        }
     }
-
-    /**
-     * @param path 
-     * @return
-     */
+    
+    @Override
     public String deserializar(String path) {
-        // TODO implement OperacionArchivo.deserializar() here
-        return "";
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(path))) {
+            Semilla[] loaded = (Semilla[]) ois.readObject();
+            semillas = loaded;
+            count = loaded.length;
+            return "Deserialización exitosa. Datos cargados desde " + path;
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+            return "Error durante la deserialización: " + e.getMessage();
+        }
     }
-
 }
