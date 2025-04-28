@@ -9,6 +9,6 @@ public interface CRUD {
     String create(Semilla semilla);
     Semilla read(String id);
     Semilla[] readAll();
-    String update(String id, Semilla semilla);
+    String update(Semilla semilla);
     String delete(String id);
 }
