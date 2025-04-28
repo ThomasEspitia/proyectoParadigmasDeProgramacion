@@ -3,20 +3,24 @@ package co.edu.poli.proyecto2.modelo;
 import java.io.*;
 import java.util.*;
 
-public class Legumbre extends Semilla {
-    private double temperaturaIdeal;
-    public Legumbre(String id, String nombre, int cantidadDisponible, int tiempoDeCosecha, String origen, double temperaturaIdeal) {
+public class Hortaliza extends Semilla {
+    private String tipoHortaliza;
+
+    public Hortaliza(String id, String nombre, int cantidadDisponible, int tiempoDeCosecha, String origen, String tipoHortaliza) {
         super(id, nombre, cantidadDisponible, tiempoDeCosecha, origen);
-        this.temperaturaIdeal = temperaturaIdeal;
+        this.tipoHortaliza = tipoHortaliza;
     }
-	public double getTemperaturaIdeal() {
-		return temperaturaIdeal;
+
+	public String getTipoHortaliza() {
+		return tipoHortaliza;
 	}
-	public void setTemperaturaIdeal(double temperaturaIdeal) {
-		this.temperaturaIdeal = temperaturaIdeal;
+
+	public void setTipoHortaliza(String tipoHortaliza) {
+		this.tipoHortaliza = tipoHortaliza;
 	}
+
 	@Override
 	public String toString() {
-		return super.toString() + ", Temperatura Ideal: " + temperaturaIdeal;		
-	}
+        return super.toString() + ", Tipo de Hortaliza: " + tipoHortaliza;
+    }
 }
